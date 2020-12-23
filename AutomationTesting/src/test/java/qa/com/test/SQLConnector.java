@@ -15,7 +15,7 @@ public class SQLConnector {
 
 	static XSSFWorkbook workbook = new XSSFWorkbook();
 	static XSSFSheet sheet = workbook.createSheet("database");
-
+	
 	public static void main(String[] args) throws Exception {
 		// Connection URL Syntax: "jdbc:mysql://ipaddress:portnumber/db_name"
 		String URL = "jdbc:mysql://localhost:3306/classicmodels";
@@ -41,27 +41,22 @@ public class SQLConnector {
 		// Execute the SQL query and store results in ResultSet
 		ResultSet rs = stmt.executeQuery(query);
 
-		XSSFWorkbook workbook = new XSSFWorkbook();
-
 		// While loop to iterate through all data and print results
-		String customerNumber = "", customerName = "", contactLastName = "", contactFirstName = "", phone = "",
-				addressLine1 = "", addressLine2 = "", city = "", state = "", postalCode = "", country = "",
-				salesRepEmployeeNumber = "", creditLimit = "";
 		int i = 0;
 		while (rs.next()) {
-			customerNumber = rs.getString(1);
-			customerName = rs.getString(2);
-			contactLastName = rs.getString(3);
-			contactFirstName = rs.getString(4);
-			phone = rs.getString(5);
-			addressLine1 = rs.getString(6);
-			addressLine2 = rs.getString(7);
-			city = rs.getString(8);
-			state = rs.getString(9);
-			postalCode = rs.getString(10);
-			country = rs.getString(11);
-			salesRepEmployeeNumber = rs.getString(12);
-			creditLimit = rs.getString(13);
+			String customerNumber = rs.getString(1);
+			String customerName = rs.getString(2);
+			String contactLastName = rs.getString(3);
+			String contactFirstName = rs.getString(4);
+			String phone = rs.getString(5);
+			String addressLine1 = rs.getString(6);
+			String addressLine2 = rs.getString(7);
+			String city = rs.getString(8);
+			String state = rs.getString(9);
+			String postalCode = rs.getString(10);
+			String country = rs.getString(11);
+			String salesRepEmployeeNumber = rs.getString(12);
+			String creditLimit = rs.getString(13);
 			ArrayList<String> list = new ArrayList<>();
 			list.add(customerNumber);
 			list.add(customerName);
@@ -76,12 +71,8 @@ public class SQLConnector {
 			list.add(country);
 			list.add(salesRepEmployeeNumber);
 			list.add(creditLimit);
-//
-//			System.out.println(customerNumber + "\t" + customerName + "\t" + contactLastName + "\t" + contactFirstName
-//					+ "\t" + phone + "\t" + addressLine1 + "\t" + addressLine2 + "\t" + city + "\t" + state + "\t"
-//					+ postalCode + "\t" + country + "\t" + salesRepEmployeeNumber + "\t" + creditLimit);
-			writeIntoExcel(System.getProperty("user.dir"), "Database_Excel.xlsx", list, i);
-			i++;
+
+			writeIntoExcel(System.getProperty("user.dir"), "Database_Excel.xlsx", list, i++);
 		}
 		// Close connection to Database
 		con.close();
@@ -90,7 +81,6 @@ public class SQLConnector {
 
 	public static void writeIntoExcel(String filePath, String fileName, ArrayList<String> dataToWrite, int rowIndex)
 			throws Exception {
-
 		Row row = sheet.createRow(rowIndex);
 
 		for (int i = 0; i < dataToWrite.size(); i++) {
