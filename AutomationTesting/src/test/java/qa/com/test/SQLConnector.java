@@ -15,7 +15,7 @@ public class SQLConnector {
 
 	static XSSFWorkbook workbook = new XSSFWorkbook();
 	static XSSFSheet sheet = workbook.createSheet("database");
-	
+
 	public static void main(String[] args) throws Exception {
 		// Connection URL Syntax: "jdbc:mysql://ipaddress:portnumber/db_name"
 		String URL = "jdbc:mysql://localhost:3306/classicmodels";
@@ -44,33 +44,20 @@ public class SQLConnector {
 		// While loop to iterate through all data and print results
 		int i = 0;
 		while (rs.next()) {
-			String customerNumber = rs.getString(1);
-			String customerName = rs.getString(2);
-			String contactLastName = rs.getString(3);
-			String contactFirstName = rs.getString(4);
-			String phone = rs.getString(5);
-			String addressLine1 = rs.getString(6);
-			String addressLine2 = rs.getString(7);
-			String city = rs.getString(8);
-			String state = rs.getString(9);
-			String postalCode = rs.getString(10);
-			String country = rs.getString(11);
-			String salesRepEmployeeNumber = rs.getString(12);
-			String creditLimit = rs.getString(13);
 			ArrayList<String> list = new ArrayList<>();
-			list.add(customerNumber);
-			list.add(customerName);
-			list.add(contactLastName);
-			list.add(contactFirstName);
-			list.add(phone);
-			list.add(addressLine1);
-			list.add(addressLine2);
-			list.add(city);
-			list.add(state);
-			list.add(postalCode);
-			list.add(country);
-			list.add(salesRepEmployeeNumber);
-			list.add(creditLimit);
+			list.add(rs.getString(1));
+			list.add(rs.getString(2));
+			list.add(rs.getString(3));
+			list.add(rs.getString(4));
+			list.add(rs.getString(5));
+			list.add(rs.getString(6));
+			list.add(rs.getString(7));
+			list.add(rs.getString(8));
+			list.add(rs.getString(9));
+			list.add(rs.getString(10));
+			list.add(rs.getString(11));
+			list.add(rs.getString(12));
+			list.add(rs.getString(13));
 
 			writeIntoExcel(System.getProperty("user.dir"), "Database_Excel.xlsx", list, i++);
 		}
@@ -87,7 +74,6 @@ public class SQLConnector {
 			Cell cell = row.createCell(i);
 			cell.setCellValue(dataToWrite.get(i));
 		}
-
 		FileOutputStream fos = new FileOutputStream(filePath + "\\" + fileName);
 		workbook.write(fos);
 		fos.close();
